@@ -27,18 +27,38 @@ rootProject.allprojects {
 }
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace 'com.kasem.receive_sharing_intent'
+    // Ensure namespace is set properly
+    namespace 'com.kasem.receive_sharing_intent'
+
+    compileSdk 34
+
+    defaultConfig {
+        minSdkVersion 23
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+
+    // Set Java compatibility to version 17
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // Set Kotlin compatibility to JVM 17
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    // Optionally use the JVM toolchain for better cross-environment compatibility
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-    defaultConfig {
-        compileSdk 34
-        minSdkVersion 23
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-    }
+
     lintOptions {
         disable 'InvalidPackage'
     }
